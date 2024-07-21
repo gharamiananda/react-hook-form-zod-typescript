@@ -2,7 +2,7 @@
 
 
 
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
 	SubmitHandler,
 	useFieldArray,
@@ -15,6 +15,8 @@ import { RHFTailwindTextField } from '../tailwind/RHFTailwindTextField';
 import { RHFTailwindSlider } from '../../components/tailwind/RHFTailwindSlider';
 import { RHFTailwindSwitch } from '../../components/tailwind/RHFTailwindSwitch';
 import { RHFDateTailwindTimePicker } from '../../components/tailwind/RHFTailwindDateTimePicker';
+import PopOver from '../../modal/PopOver';
+import Modal from '../../modal/Modal';
 // import { RHFDateTailwindTimePicker } from '../../components/tailwind/RHFTailwindDateTimePicker';
 
 export  default function UserForm (){
@@ -63,6 +65,18 @@ export  default function UserForm (){
 	const onSubmit: SubmitHandler<Schema> = (data) => {
 	
 	};
+
+	const [showModal, setShowModal] = useState(false);
+
+	const toggleModal = () => setShowModal(!showModal);
+
+
+	const [showSmallModal, setShowSmallModal] = useState(false);
+	const [showMediumModal, setShowMediumModal] = useState(false);
+	const [showLargeModal, setShowLargeModal] = useState(false);
+	const [showExtralargeModal, setShowExtralargeModal] = useState(false);
+
+
 	return (
 <div className="conatiner "> 
 
@@ -77,8 +91,11 @@ export  default function UserForm (){
 
 
 			
-					<RHFTailwindTextField<Schema> maxLength={10} name="name" label="Name" />
+					<RHFTailwindTextField<Schema> name="name" label="Name" />
 					<RHFTailwindTextField<Schema>  name="email" label="Email" />
+					<RHFTailwindTextField<Schema>  name="phone" label="Phone"  type='number' />
+					<RHFTailwindTextField<Schema> name="password" label="Password" type="password" />
+
 					{/* <RHFTailwindAutocomplete<Schema>
 						name="states"
 						label="States"
@@ -135,8 +152,117 @@ export  default function UserForm (){
 				
 			
 		
+
+
+
+
+		
 		</form>
 
+
+		<div className="p-5">
+      <button
+        onClick={toggleModal}
+        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button"
+      >
+        Toggle modal
+      </button>
+
+      <PopOver  show={showModal} onClose={toggleModal}>
+        <div className="p-4 md:p-5 text-center">
+          <svg
+            className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+            Are you sure you want to delete this product?
+          </h3>
+          <button
+            onClick={toggleModal}
+            className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+          >
+            Yes, I'm sure
+          </button>
+          <button
+            onClick={toggleModal}
+            className="py-2.5 px-5 ml-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            No, cancel
+          </button>
+        </div>
+      </PopOver>
+
+ <div className="p-5 space-y-4">
+      <div className="block space-y-4 md:flex md:space-y-0 md:space-x-4 rtl:space-x-reverse">
+        <button
+          onClick={() => setShowSmallModal(true)}
+          className="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Small modal
+        </button>
+        <button
+          onClick={() => setShowMediumModal(true)}
+          className="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Default modal
+        </button>
+        <button
+          onClick={() => setShowLargeModal(true)}
+          className="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Large modal
+        </button>
+        <button
+          onClick={() => setShowExtralargeModal(true)}
+          className="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Extra large modal
+        </button>
+      </div>
+
+      <Modal id="small-modal" show={showSmallModal} onClose={() => setShowSmallModal(false)} size="small" title="Small modal">
+        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+        </p>
+        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+        </p>
+      </Modal>
+
+
+
+      <Modal id="medium-modal" show={showMediumModal} onClose={() => setShowMediumModal(false)} size="medium" title="Default modal">
+        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+        </p>
+        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+        </p>
+      </Modal>
+
+      <Modal id="large-modal" show={showLargeModal} onClose={() => setShowLargeModal(false)} size="large" title="Large modal">
+        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+        </p>
+        <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+        </p>
+      </Modal>
+
+  </div> 
+    </div>
         </div>
         </div>
 

@@ -1,4 +1,6 @@
 
+import GlobalTable from './components/table/GlobalTable'
+import ProductTable from './components/table/ProductTable'
 import { UsersProvider } from './components/user'
 
 function App() {
@@ -7,8 +9,23 @@ function App() {
     <>
 
     <UsersProvider  />
-    </>
+
+
+
+
+    
+
+      <ProductTable/>
+
+
+</>
+
+
+
+
   )
+
 }
 
 export default App
+
